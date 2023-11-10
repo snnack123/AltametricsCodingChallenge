@@ -24,6 +24,9 @@ These constitute the procedural steps required to perform the cloning of the pro
 - Yup
 - Formik
 
+## ENV example
+VITE_API_URL =
+
 ## Unfinished work
 - Technical debt - The code requires restructuring. In essence, it is advisable to generate several smaller components that are essential across multiple pages.
 - Responsiveness - Need to make the left sidebar responsive.
