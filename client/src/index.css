@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.activeLink {
+    @apply bg-primary text-white;
+}
+
+.inactiveLink {
+    @apply hover:bg-primary hover:bg-opacity-70 hover:text-white;
+}
+
+.errorMessage {
+    @apply text-sm text-red-500;
+}
+
+.inputStyles {
+    @apply block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6;
+}
+
+.iconStyles {
+    @apply h-6 w-6 hover:text-gray-800 cursor-pointer;
+}
+
+.pagination-container {
+    @apply flex items-center;
+}
+  
+.pagination-item {
+    @apply inline-block border border-secondary mr-4 cursor-pointer rounded-md px-2 text-[#7E8DD8];
+}
+  
+.pagination-item-active {
+    @apply border border-[#7E8DD8] rounded-md px-2;
+}
+  
+.pagination-previous,
+.pagination-next {
+    @apply inline-block mr-1 cursor-pointer text-[#7E8DD8];
+}
+
+.pagination-previous {
+    @apply mr-2;
+}
+
+.pagination-next {
+    @apply ml-2;
+}
+
+.tableTh {
+    @apply px-3 py-3.5 text-left text-sm font-bold text-gray-900 border-r border-gray-200;
+}
+
+.tableTd { 
+    @apply whitespace-nowrap px-3 py-4 text-sm border-r border-gray-200;
+}
+
+.labelStyles {
+    @apply block text-sm font-medium leading-6 text-gray-900;
+}
