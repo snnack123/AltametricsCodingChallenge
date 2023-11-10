@@ -1,4 +1,4 @@
-# AltametricsCodingChallenge
+# Altametrics Coding Challenge
 
 ## Assumptions
 - I added the code for both the backend and frontend in the same repository to make it easier to test.
