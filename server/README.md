@@ -18,4 +18,5 @@ These constitute the procedural steps required to perform the cloning of the pro
 ## ENV example
 
 DATABASE_URL="postgresql://**DATABASE_USER**:**DATABASE_PASSWORD**@localhost:5432/**DATABASE_NAME**"
+
 JWT_SECRET=
