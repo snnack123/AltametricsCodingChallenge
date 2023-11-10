@@ -1,27 +1,28 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application constitutes a prototype aimed at developing a platform utilizing React, Vite, and TypeScript technologies, with the primary objective of efficiently managing the invoicing process.
 
-Currently, two official plugins are available:
+These constitute the procedural steps required to perform the cloning of the project and its initiation:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Please input the following command into a Git Bash terminal: ```git clone https://github.com/snnack123/AltametricsCodingChallenge.git```
+- Navigate to the 'client' directory and execute ```npm i``` to install the packages.
+- Execute ```npm run dev``` in the terminal to initiate the application.
+- Open a web browser and enter ```http://localhost:5173/```.
 
-## Expanding the ESLint configuration
+## Main implemented routes
+- ```/``` -  This route represents the homepage where, if the user is authenticated, it will display both the sidebar and the main navbar.
+- ```/login``` - The login page. For this page, I utilized the Yup and Formik libraries for validations.
+- ```/register``` - The register page. For this page, I utilized the Yup and Formik libraries for validations.
+- ```/invoices``` - The page displays the table of invoices, enabling sorting based on various data types, and featuring pagination implemented through react-paginate to facilitate navigation between pages.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Most important libraries
+- react-paginate
+- react-redux
+- react-router-dom
+- tailwindcss
+- axios
+- yup
+- formik
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Unfinished work
+- Technical debt - The code requires restructuring. In essence, it is advisable to generate several smaller components that are essential across multiple pages.
