@@ -4,9 +4,9 @@ const prisma = new PrismaClient();
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    password: 'alice123',
+    name: 'Mihai Adrian Lungu',
+    email: 'adrian.lungu199@gmail.com',
+    password: 'Password123!',
     invoices: {
       create: [
         ...Array.from({ length: 20 }).map((_, i) => ({
