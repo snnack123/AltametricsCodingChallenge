@@ -16,7 +16,6 @@ These constitute the procedural steps required to perform the cloning of the pro
 - ```http://localhost:3000/graphql``` - At this route, the GraphQL interface can be accessed, providing a comprehensive view of the implemented queries, mutations, and schema for efficient data retrieval and manipulation.
 
 ## ENV example
-``` 
-DATABASE_URL="postgresql://**DATABASE_USER**:**DATABASE_PASSWORD**@localhost:5432/**DATABASE_NAME**"
+
+DATABASE_URL="postgresql://**DATABASE_USER**:**DATABASE_PASSWORD**@localhost:5432/**DATABASE_NAME**" <br>
 JWT_SECRET=
-```
