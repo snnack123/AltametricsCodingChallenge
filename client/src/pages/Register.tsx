@@ -7,15 +7,12 @@ import FormikBase, { DefaultOnSubmit } from "../components/Forms/FormikBase";
 import { Form, FormikValues,} from 'formik';
 import { registerSchema } from "../yupSchemas";
 import { registerInitialValues } from "../utils/constants";
-import { useNavigate } from "react-router-dom";
 import FormField from "../components/Forms/FormField";
 import FormRequestMessage from "../components/Forms/FormRequestMessage";
 
 export default function Register() {
   const [requestMessage, setRequestMessage] = useState<string>("");
   const [requestError, setRequestError] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   const registerHandler = useCallback(async (values: FormikValues) => {
     const { email, password, name } = values as RegisterFormData;
@@ -31,10 +28,6 @@ export default function Register() {
 
     if (response.status) {
       setRequestError(false);
-
-      setTimeout(() => {
-        navigate("/login");
-      } , 1000);
     } else {
       setRequestError(true);
     }

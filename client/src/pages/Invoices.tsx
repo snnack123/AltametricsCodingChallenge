@@ -123,7 +123,7 @@ export default function Invoices() {
         <PencilIcon className="iconStyles" aria-hidden="true" />
       </div>
 
-      {invoices.length > 0 && (
+      {invoices.length > 0 ? (
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="mt-8 flow-root">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -204,6 +204,10 @@ export default function Invoices() {
             </div>
           </div>
           {modalData && <Modal open={openModal} setOpen={setOpenModal} data={modalData} />}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-96">
+          <div className="text-2xl">No invoices found.</div>
         </div>
       )}
     </div>
