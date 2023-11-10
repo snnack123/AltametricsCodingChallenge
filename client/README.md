@@ -16,13 +16,13 @@ These constitute the procedural steps required to perform the cloning of the pro
 - ```/invoices``` - The page displays the table of invoices, enabling sorting based on various data types, and featuring pagination implemented through react-paginate to facilitate navigation between pages.
 
 ## Most important libraries
-- react-paginate
-- react-redux
-- react-router-dom
-- tailwindcss
-- axios
-- yup
-- formik
+- React-paginate
+- React-redux
+- React-router-dom
+- Tailwindcss
+- Axios
+- Yup
+- Formik
 
 ## Unfinished work
 - Technical debt - The code requires restructuring. In essence, it is advisable to generate several smaller components that are essential across multiple pages.
