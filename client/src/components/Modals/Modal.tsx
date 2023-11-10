@@ -1,7 +1,7 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { InvoiceDto } from '../types/interfaces';
-import { returnShortFormattedDate } from '../utils/utilFunctions';
+import { InvoiceDto } from '../../types/interfaces';
+import { returnShortFormattedDate } from '../../utils/utilFunctions';
 
 interface ModalProps {
     open: boolean;

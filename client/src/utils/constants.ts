@@ -18,6 +18,7 @@ export const loginInitialValues: ILoginReqDto = {
 
 export const registerInitialValues: IRegisterDto = {
   email: "",
+  name: "",
   password: "",
   confirmPassword: "",
 };

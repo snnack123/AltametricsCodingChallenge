@@ -1,11 +1,14 @@
-export interface LoginFormData {
+export interface ILoginReqDto {
   email: string;
   password: string;
 }
-
 export interface LoginResponse {
   message: string;
   token: string | null;
+}
+
+export interface RegisterFormData extends ILoginReqDto {
+  name: string;
 }
 
 export interface RegisterResponse {
@@ -13,23 +16,13 @@ export interface RegisterResponse {
   status: boolean;
 }
 
-export interface RegisterFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
 export interface CheckToken {
   validToken: boolean;
 }
 
-export interface ILoginReqDto {
-  email: string;
-  password: string;
-}
-
 export interface IRegisterDto {
   email: string;
+  name: string;
   password: string;
   confirmPassword: string;
 }

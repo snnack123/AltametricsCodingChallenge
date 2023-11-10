@@ -58,3 +58,11 @@
 .labelStyles {
     @apply block text-sm font-medium leading-6 text-gray-900;
 }
+
+.formButton {
+    @apply flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+}
+
+.secondaryButton {
+    @apply inline-flex items-center px-3 py-1.5 border border-primary text-sm font-medium rounded-md text-black hover:bg-primary hover:bg-opacity-30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary;
+}

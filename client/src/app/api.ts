@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginFormData } from "../types/interfaces";
+import { ILoginReqDto } from "../types/interfaces";
 import { API_ROUTES } from "./routes";
 
 export const axiosInstance = axios.create({
@@ -8,8 +8,8 @@ export const axiosInstance = axios.create({
 
 export const API = {
     auth: {
-        login: (data: LoginFormData) => axiosInstance.post(API_ROUTES.auth.login, data),
-        register: (data: LoginFormData) => axiosInstance.post(API_ROUTES.auth.register, data),
+        login: (data: ILoginReqDto) => axiosInstance.post(API_ROUTES.auth.login, data),
+        register: (data: ILoginReqDto) => axiosInstance.post(API_ROUTES.auth.register, data),
         check: (token: string) => axiosInstance.get(API_ROUTES.auth.check, {
             headers: {
                 Authorization: `Bearer ${token}`,

@@ -1,13 +1,15 @@
 import { useCallback, useState } from "react";
 import AppLogo from "../assets/Altametrics_logo.webp";
-import { LoginFormData, RegisterResponse } from "../types/interfaces";
+import { RegisterFormData, RegisterResponse } from "../types/interfaces";
 import { API } from "../app/api";
 import { AxiosResponse } from "axios";
-import FormikBase, { DefaultOnSubmit } from "../components/FormikBase";
-import { ErrorMessage, Field, Form, FormikValues,} from 'formik';
+import FormikBase, { DefaultOnSubmit } from "../components/Forms/FormikBase";
+import { Form, FormikValues,} from 'formik';
 import { registerSchema } from "../yupSchemas";
 import { registerInitialValues } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
+import FormField from "../components/Forms/FormField";
+import FormRequestMessage from "../components/Forms/FormRequestMessage";
 
 export default function Register() {
   const [requestMessage, setRequestMessage] = useState<string>("");
@@ -15,10 +17,13 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  const registerHandler = useCallback(async (email:string, password:string) => {
-    const userData: LoginFormData = {
+  const registerHandler = useCallback(async (values: FormikValues) => {
+    const { email, password, name } = values as RegisterFormData;
+
+    const userData: RegisterFormData = {
       email,
       password,
+      name,
     };
 
     const result: AxiosResponse<RegisterResponse> = await API.auth.register(userData);
@@ -38,7 +43,7 @@ export default function Register() {
   }, []);
 
   const submitHandler = useCallback(async (values:FormikValues) => {
-    registerHandler(values.email, values.password);
+    registerHandler(values);
   }, []);
 
   return (
@@ -63,77 +68,46 @@ export default function Register() {
           >
           {() => (
             <Form className="space-y-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="labelStyles">
-                  Email address
-                </label>
-                <div className="mt-2">
-                  <Field
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="email"
-                    className="inputStyles"
-                  />
-                  <ErrorMessage name="email" component='div' className='errorMessage'/>
-                </div>
-              </div>
+              <FormField
+                label="Email address"
+                name="email"
+                type="email"
+                placeholder="email"
+                className="inputStyles"
+              />
+              <FormField
+                label="Full name"
+                name="name"
+                type="text"
+                placeholder="Full Name"
+                className="inputStyles"
+              />
 
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="labelStyles">
-                    Password
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <Field
-                    id="password"
-                    name="password"
-                    type="password"
-                    className="inputStyles"
-                  />
-                  <ErrorMessage name="password" component='div' className='errorMessage'/>
-                </div>
-              </div>
+              <FormField
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="********"
+                className="inputStyles"
+              />
 
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="confirmPassword"
-                    className="labelStyles">
-                    Confirm Password
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <Field
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    className="inputStyles"
-                  />
-                  <ErrorMessage name="confirmPassword" component='div' className='errorMessage'/>
-                </div>
-              </div>
+              <FormField
+                label="Confirm Password"
+                name="confirmPassword"
+                type="password"
+                placeholder="********"
+                className="inputStyles"
+              />
 
               <div>
                 <button
                   disabled={requestMessage.length > 0 && !requestError}
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                  className="formButton">
                     Sign up 
                 </button>
               </div>
-              <p className={`text-center text-sm font-medium ${requestError ? 'text-red-500' : 'text-green-500'}`}>
-                {requestMessage.length > 0 ? (
-                  requestMessage
-                ) : (
-                  <span>&nbsp;</span>
-                )}
-              </p>
+              <FormRequestMessage requestMessage={requestMessage} requestError={requestError} />
             </Form>
           )}
         </FormikBase>

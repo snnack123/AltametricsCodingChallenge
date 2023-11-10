@@ -1,15 +1,16 @@
 import { useCallback, useState } from "react";
 import AppLogo from "../assets/Altametrics_logo.webp";
-import { LoginFormData, LoginResponse } from "../types/interfaces";
+import { ILoginReqDto, LoginResponse } from "../types/interfaces";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken } from "../app/reducers/userReducer";
 import { API } from "../app/api";
 import { AxiosResponse } from "axios";
-import FormikBase, { DefaultOnSubmit } from "../components/FormikBase";
+import FormikBase, { DefaultOnSubmit } from "../components/Forms/FormikBase";
 import { loginSchema } from "../yupSchemas";
 import { loginInitialValues } from "../utils/constants";
-import { ErrorMessage, Field, Form, FormikValues,} from 'formik';
+import { Form, FormikValues,} from 'formik';
+import FormField from "../components/Forms/FormField";
 
 export default function Login() {
   const [invalidCredentials, setInvalidCredentials] = useState<string>("");
@@ -18,7 +19,7 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const loginHandler = useCallback(async (email:string, password:string) => {
-    const userData: LoginFormData = {
+    const userData: ILoginReqDto = {
       email,
       password,
     };
@@ -65,31 +66,20 @@ export default function Login() {
           >
           {() => (
             <Form className="space-y-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="labelStyles">
-                  Email address
-                </label>
-                <div className="mt-2">
-                  <Field
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="email"
-                    className="inputStyles"
-                  />
-                  <ErrorMessage name="email" component='div' className='errorMessage'/>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="labelStyles">
-                    Password
-                  </label>
+              <FormField
+                label="Email address"
+                name="email"
+                type="email"
+                placeholder="email"
+                className="inputStyles"
+              />
+              
+              <FormField
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="********"
+                className="inputStyles">
                   <div className="text-sm">
                     <Link
                       to="/login"
@@ -97,22 +87,12 @@ export default function Login() {
                       Forgot password?
                     </Link>
                   </div>
-                </div>
-                <div className="mt-2">
-                  <Field
-                    id="password"
-                    name="password"
-                    type="password"
-                    className="inputStyles"
-                  />
-                  <ErrorMessage name="password" component='div' className='errorMessage'/>
-                </div>
-              </div>
+              </FormField>
 
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                  className="formButton">
                   Sign in
                 </button>
               </div>

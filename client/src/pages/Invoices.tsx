@@ -8,7 +8,7 @@ import { AxiosResponse } from "axios";
 import Pagination from "../components/Pagination";
 import { returnShortFormattedDate } from "../utils/utilFunctions";
 import TableHead from "../components/TableHead";
-import Modal from "../components/Modal";
+import Modal from "../components/Modals/Modal";
 
 export default function Invoices() {
   const [invoices, setInvoices] = useState<InvoiceDto[]>([]);
