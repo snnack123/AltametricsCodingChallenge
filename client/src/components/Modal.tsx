@@ -1,6 +1,5 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
 import { InvoiceDto } from '../types/interfaces';
 import { returnShortFormattedDate } from '../utils/utilFunctions';
 
@@ -52,23 +51,23 @@ export default function Modal({ open, setOpen, data }: Readonly<ModalProps>) {
                       </div>
                       <div className='w-full flex justify-between max-w-[16rem]'>
                         <div className='font-bold'>Details:</div>
-                        <div>{data.details}</div>
+                        <div className='truncate'>{data.details}</div>
                       </div>
                       <div className='w-full flex justify-between max-w-[16rem]'>
                         <div className='font-bold'>Amount:</div>
-                        <div className='italic'>$ {data.amount}</div>
+                        <div className='truncate italic'>$ {data.amount}</div>
                       </div>
                       <div className='w-full flex justify-between max-w-[16rem]'>
                         <div className='font-bold'>Date:</div>
-                        <div>{returnShortFormattedDate(data.dueDate)}</div>
+                        <div className='truncate'>{returnShortFormattedDate(data.dueDate)}</div>
                       </div>
                       <div className='w-full flex justify-between max-w-[16rem]'>
                         <div className='font-bold'>Created date:</div>
-                        <div>{returnShortFormattedDate(data.createdAt)}</div>
+                        <div className='truncate'>{returnShortFormattedDate(data.createdAt)}</div>
                       </div>
                       <div className='w-full flex justify-between max-w-[16rem]'>
                         <div className='font-bold'>Update date:</div>
-                        <div>{returnShortFormattedDate(data.updatedAt)}</div>
+                        <div className='truncate'>{returnShortFormattedDate(data.updatedAt)}</div>
                       </div>
                     </div>
                   </div>

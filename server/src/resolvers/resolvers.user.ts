@@ -1,97 +1,104 @@
-// import 'reflect-metadata';
-// import {
-//   Resolver,
-//   Query,
-//   Mutation,
-//   Args,
-//   Context,
-//   ResolveField,
-//   Root,
-//   InputType,
-//   Field,
-// } from '@nestjs/graphql';
-// import { Inject } from '@nestjs/common';
-// import { Post } from '../dtos/post';
-// import { User } from '../dtos/user';
-// import { PrismaService } from '../prisma.service';
-// import { PostCreateInput } from './resolvers.post';
+import 'reflect-metadata';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Context,
+  ResolveField,
+  Root,
+  InputType,
+  Field,
+} from '@nestjs/graphql';
+import { Inject } from '@nestjs/common';
+import { User } from 'src/models/user';
+import { Invoice } from 'src/models/invoice';
+import { PrismaService } from '../prisma.service';
+import { InvoiceCreateInput } from './resolvers.invoice';
+import * as bcrypt from 'bcrypt';
 
-// @InputType()
-// class UserUniqueInput {
-//   @Field({ nullable: true })
-//   id: number;
+@InputType()
+class UserUniqueInput {
+  @Field({ nullable: true })
+  id: number;
 
-//   @Field({ nullable: true })
-//   email: string;
-// }
+  @Field({ nullable: true })
+  email: string;
+}
 
-// @InputType()
-// class UserCreateInput {
-//   @Field()
-//   email: string;
+@InputType()
+class UserCreateInput {
+  @Field()
+  email: string;
 
-//   @Field({ nullable: true })
-//   name: string;
+  @Field()
+  password: string;
 
-//   @Field((type) => [PostCreateInput], { nullable: true })
-//   posts: [PostCreateInput];
-// }
+  @Field({ nullable: true })
+  name: string;
 
-// @Resolver(User)
-// export class UserResolver {
-//   constructor(@Inject(PrismaService) private prismaService: PrismaService) {}
+  @Field((type) => [InvoiceCreateInput], { nullable: true })
+  invoices: [InvoiceCreateInput];
+}
 
-//   @ResolveField()
-//   async posts(@Root() user: User, @Context() ctx): Promise<Post[]> {
-//     return this.prismaService.user
-//       .findUnique({
-//         where: {
-//           id: user.id,
-//         },
-//       })
-//       .posts();
-//   }
+@Resolver(User)
+export class UserResolver {
+  constructor(@Inject(PrismaService) private prismaService: PrismaService) {}
 
-//   @Mutation((returns) => User)
-//   async signupUser(
-//     @Args('data') data: UserCreateInput,
-//     @Context() ctx,
-//   ): Promise<User> {
-//     const postData = data.posts?.map((post) => {
-//       return { title: post.title, content: post.content || undefined };
-//     });
+  @ResolveField()
+  async invoices(@Root() user: User, @Context() ctx): Promise<Invoice[]> {
+    return this.prismaService.user
+      .findUnique({
+        where: {
+          id: user.id,
+        },
+      })
+      .invoices();
+  }
 
-//     return this.prismaService.user.create({
-//       data: {
-//         email: data.email,
-//         name: data.name,
-//         posts: {
-//           create: postData,
-//         },
-//       },
-//     });
-//   }
+  @Mutation((returns) => User)
+  async signupUser(
+    @Args('data') data: UserCreateInput,
+    @Context() ctx,
+  ): Promise<User> {
+    const invoiceData = data.invoices?.map((invoice) => {
+      return {
+        amount: invoice.amount,
+        dueDate: invoice.dueDate,
+        details: invoice.details,
+      };
+    });
 
-//   @Query((returns) => [User], { nullable: true })
-//   async allUsers(@Context() ctx) {
-//     return this.prismaService.user.findMany();
-//   }
+    const hashedPassword = await bcrypt.hash(data.password, 10);
 
-//   @Query((returns) => [Post], { nullable: true })
-//   async draftsByUser(
-//     @Args('userUniqueInput') userUniqueInput: UserUniqueInput,
-//   ): Promise<Post[]> {
-//     return this.prismaService.user
-//       .findUnique({
-//         where: {
-//           id: userUniqueInput.id || undefined,
-//           email: userUniqueInput.email || undefined,
-//         },
-//       })
-//       .posts({
-//         where: {
-//           published: false,
-//         },
-//       });
-//   }
-// }
+    return this.prismaService.user.create({
+      data: {
+        email: data.email,
+        name: data.name,
+        password: hashedPassword,
+        invoices: {
+          create: invoiceData,
+        },
+      },
+    });
+  }
+
+  @Query((returns) => [User], { nullable: true })
+  async allUsers(@Context() ctx) {
+    return this.prismaService.user.findMany();
+  }
+
+  @Query((returns) => [Invoice], { nullable: true })
+  async invoicesByUser(
+    @Args('userUniqueInput') userUniqueInput: UserUniqueInput,
+  ): Promise<Invoice[]> {
+    return this.prismaService.user
+      .findUnique({
+        where: {
+          id: userUniqueInput.id || undefined,
+          email: userUniqueInput.email || undefined,
+        },
+      })
+      .invoices();
+  }
+}

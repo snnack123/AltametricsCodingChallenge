@@ -1,0 +1,74 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Invoice {
+  id: Int!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  amount: Int!
+  dueDate: Timestamp!
+  details: String
+  user: User
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type User {
+  id: Int!
+  email: String!
+  name: String
+  password: String!
+  invoices: [Invoice!]
+}
+
+type Query {
+  allUsers: [User!]
+  invoicesByUser(userUniqueInput: UserUniqueInput!): [Invoice!]
+  invoiceById(id: Float!): Invoice
+  feed(searchString: String, skip: Float, take: Float, orderBy: InvoiceOrderByUpdatedAtInput): [Invoice!]!
+}
+
+input UserUniqueInput {
+  id: Float
+  email: String
+}
+
+input InvoiceOrderByUpdatedAtInput {
+  updatedAt: SortOrder!
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+type Mutation {
+  signupUser(data: UserCreateInput!): User!
+  createInvoice(data: InvoiceCreateInput!, userEmail: String!): Invoice!
+  updateInvoice(data: InvoiceUpdateInput!): Invoice!
+  deleteInvoice(id: Float!): Invoice
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  name: String
+  invoices: [InvoiceCreateInput!]
+}
+
+input InvoiceCreateInput {
+  amount: Float!
+  dueDate: Timestamp!
+  details: String
+}
+
+input InvoiceUpdateInput {
+  amount: Float!
+  dueDate: Timestamp!
+  details: String
+  id: Float!
+}
